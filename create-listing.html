@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Listing - Equity Protocol</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    .stepper {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+      position: relative;
+    }
+    
+    .stepper::before {
+      content: '';
+      position: absolute;
+      top: 1.5rem;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background-color: var(--gray-300);
+      z-index: 0;
+    }
+    
+    .step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+      width: 33.33%;
+    }
+    
+    .step-number {
+      width: 3rem;
+      height: 3rem;
+      border-radius: 50%;
+      background-color: var(--gray-300);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+    
+    .step.active .step-number {
+      background-color: var(--primary-color);
+    }
+    
+    .step.completed .step-number {
+      background-color: var(--success-color);
+    }
+    
+    .step-label {
+      font-weight: 500;
+      color: var(--gray-600);
+    }
+    
+    .step.active .step-label {
+      color: var(--primary-color);
+      font-weight: 600;
+    }
+    
+    .step.completed .step-label {
+      color: var(--success-color);
+    }
+    
+    .dropzone {
+      border: 2px dashed var(--gray-300);
+      border-radius: var(--border-radius);
+      padding: 2rem;
+      text-align: center;
+      color: var(--gray-500);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .dropzone:hover {
+      border-color: var(--primary-color);
+      color: var(--primary-color);
+    }
+    
+    .form-section {
+      background-color: white;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      padding: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">Equity Protocol</div>
+        <div class="nav-links">
+          <a href="index.html">Home</a>
+          <a href="browse-assets.html">Browse Assets</a>
+          <a href="portfolio.html">My Portfolio</a>
+          <a href="create-listing.html" class="active">Create Listing</a>
+        </div>
+        <button class="btn" disabled style="background-color: var(--success-color);">Wallet Connected</button>
+      </nav>
+    </div>
+  </header>
+  
+  <div class="container" style="padding-top: 2rem; padding-bottom: 4rem;">
+    <h1 class="mb-4">Create New Asset Listing</h1>
+    
+    <div class="stepper">
+      <div class="step active">
+        <div class="step-number">1</div>
+        <div class="step-label">Create LTO</div>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-label">Set Sale Parameters</div>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-label">Review & Confirm</div>
+      </div>
+    </div>
+    
+    <div class="form-section">
+      <h2 class="mb-4">Create LTO Ownable</h2>
+      
+      <form id="create-lto-form">
+        <div class="form-group">
+          <label for="select-ownable">Select Ownable</label>
+          <select id="select-ownable">
+            <option value="" disabled selected>Select an NFT from your wallet</option>
+            <option value="new">Create new ownable</option>
+            <option value="nft1">Rolex Submariner #1234</option>
+            <option value="nft2">Vintage Watch Collection #5678</option>
+            <option value="nft3">Luxury Timepiece #9012</option>
+          </select>
+          <small style="display: block; margin-top: 0.25rem; color: var(--gray-500);">Select an existing NFT or create a new one. Some fields will be auto-filled based on your selection.</small>
+        </div>
+        
+        <div class="form-group">
+          <label for="asset-name">Asset Name</label>
+          <input type="text" id="asset-name" placeholder="e.g., Rolex Submariner 126610LN">
+        </div>
+        
+        <div class="form-group">
+          <label for="asset-description">Asset Description</label>
+          <textarea id="asset-description" rows="5" placeholder="Describe your asset in detail..."></textarea>
+        </div>
+        
+        <div class="form-group">
+          <label for="asset-category">Asset Category</label>
+          <select id="asset-category">
+            <option value="" disabled selected>Select category</option>
+            <option value="watches">Watches</option>
+            <option value="art">Art</option>
+            <option value="collectibles">Collectibles</option>
+            <option value="real-estate">Real Estate</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label>Upload Images</label>
+          <div class="dropzone" id="image-dropzone">
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 1rem;">
+              <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7"></path>
+              <line x1="16" y1="5" x2="22" y2="5"></line>
+              <line x1="19" y1="2" x2="19" y2="8"></line>
+              <circle cx="9" cy="9" r="2"></circle>
+              <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"></path>
+            </svg>
+            <p>Drag and drop images here or click to browse</p>
+            <p style="font-size: 0.875rem; margin-top: 0.5rem;">Include multiple angles of your asset. Max 5 images.</p>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label>Verification Documents</label>
+          <div class="dropzone" id="docs-dropzone">
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 1rem;">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="16" y1="13" x2="8" y2="13"></line>
+              <line x1="16" y1="17" x2="8" y2="17"></line>
+              <polyline points="10 9 9 9 8 9"></polyline>
+            </svg>
+            <p>Upload certificates of authenticity, receipts, etc.</p>
+            <p style="font-size: 0.875rem; margin-top: 0.5rem;">These documents will help buyers verify the authenticity of your asset</p>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <div class="grid">
+            <div class="col-6">
+              <label for="purchase-year">Year of Purchase</label>
+              <input type="number" id="purchase-year" placeholder="e.g., 2022">
+            </div>
+            <div class="col-6">
+              <label for="condition">Condition</label>
+              <select id="condition">
+                <option value="" disabled selected>Select condition</option>
+                <option value="mint">Mint</option>
+                <option value="excellent">Excellent</option>
+                <option value="good">Good</option>
+                <option value="fair">Fair</option>
+                <option value="poor">Poor</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="additional-info">Additional Information</label>
+          <textarea id="additional-info" rows="3" placeholder="Any additional details about the asset..."></textarea>
+        </div>
+        
+        <div style="display: flex; justify-content: flex-end; margin-top: 2rem;">
+          <button type="button" class="btn" id="next-step" style="padding: 0.75rem 2rem; font-weight: 500;">Next: Set Sale Parameters</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  
+  <footer style="background-color: var(--gray-800); color: white; padding: 3rem 0;">
+    <div class="container">
+      <div class="grid">
+        <div class="col-6">
+          <h3 style="color: white;">Equity Protocol</h3>
+          <p style="color: var(--gray-400);">Equity Protocol enables fractional ownership of real-world assets through tokenization, providing liquidity and accessibility to previously illiquid markets.</p>
+        </div>
+        
+        <div class="col-2">
+          <h4 style="color: white;">Platform</h4>
+          <ul style="list-style: none; padding: 0;">
+            <li style="margin-bottom: 0.5rem;"><a href="#" style="color: var(--gray-400);">Browse Assets</a></li>
+            <li style="margin-bottom: 0.5rem;"><a href="#" style="color: var(--gray-400);">Create Listing</a></li>
+            <li style="margin-bottom: 0.5rem;"><a href="#" style="color: var(--gray-400);">My Portfolio</a></li>
+          </ul>
+        </div>
+        
+        <div class="col-2">
+          <h4 style="color: white;">Resources</h4>
+          <ul style="list-style: none; padding: 0;">
+            <li style="margin-bottom: 0.5rem;"><a href="#" style="color: var(--gray-400);">Documentation</a></li>
+            <li style="margin-bottom: 0.5rem;"><a href="#" style="color: var(--gray-400);">FAQ</a></li>
+            <li style="margin-bottom: 0.5rem;"><a href="#" style="color: var(--gray-400);">GitHub</a></li>
+          </ul>
+        </div>
+        
+        <div class="col-2">
+          <h4 style="color: white;">Legal</h4>
+          <ul style="list-style: none; padding: 0;">
+            <li style="margin-bottom: 0.5rem;"><a href="#" style="color: var(--gray-400);">Terms</a></li>
+            <li style="margin-bottom: 0.5rem;"><a href="#" style="color: var(--gray-400);">Privacy</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div style="margin-top: 3rem; border-top: 1px solid var(--gray-700); padding-top: 2rem; text-align: center; color: var(--gray-500);">
+        &copy; 2023 Equity Protocol. All rights reserved.
+      </div>
+    </div>
+  </footer>
+  
+  <script>
+    // Simple form navigation
+    document.getElementById('next-step').addEventListener('click', function() {
+      window.location.href = 'set-sale-parameters.html';
+    });
+    
+    // Simulate dropzone functionality
+    document.getElementById('image-dropzone').addEventListener('click', function() {
+      alert('File browser would open here');
+    });
+    
+    document.getElementById('docs-dropzone').addEventListener('click', function() {
+      alert('File browser would open here');
+    });
+    
+    // Add functionality for the Select Ownable dropdown (conceptual only)
+    document.getElementById('select-ownable').addEventListener('change', function() {
+      if (this.value !== 'new' && this.value !== '') {
+        alert('In a full implementation, this would auto-fill form fields based on the selected NFT data.');
+      }
+    });
+  </script>
+</body>
+</html> 

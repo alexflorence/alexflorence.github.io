@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Review & Confirm Listing - Equity Protocol</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    .stepper {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+      position: relative;
+    }
+    
+    .stepper::before {
+      content: '';
+      position: absolute;
+      top: 1.5rem;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background-color: var(--gray-300);
+      z-index: 0;
+    }
+    
+    .step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+      width: 33.33%;
+    }
+    
+    .step-number {
+      width: 3rem;
+      height: 3rem;
+      border-radius: 50%;
+      background-color: var(--gray-300);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+    
+    .step.active .step-number {
+      background-color: var(--primary-color);
+    }
+    
+    .step.completed .step-number {
+      background-color: var(--success-color);
+    }
+    
+    .step-label {
+      font-weight: 500;
+      color: var(--gray-600);
+    }
+    
+    .step.active .step-label {
+      color: var(--primary-color);
+      font-weight: 600;
+    }
+    
+    .step.completed .step-label {
+      color: var(--success-color);
+    }
+    
+    .form-section {
+      background-color: white;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      padding: 2rem;
+    }
+    
+    .asset-preview {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .asset-preview img {
+      width: 100%;
+      max-width: 300px;
+      border-radius: var(--border-radius);
+      margin-bottom: 1rem;
+    }
+    
+    .parameters-summary {
+      margin-bottom: 2rem;
+    }
+    
+    .parameter-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--gray-200);
+    }
+    
+    .parameter-row .label {
+      font-weight: 500;
+      color: var(--gray-700);
+    }
+    
+    .parameter-row .value {
+      font-weight: 600;
+    }
+    
+    .calculation-summary {
+      background-color: var(--gray-100);
+      padding: 1.5rem;
+      border-radius: var(--border-radius);
+      margin-top: 1.5rem;
+    }
+    
+    .calculation-summary h4 {
+      margin-bottom: 1rem;
+      color: var(--gray-800);
+    }
+    
+    .calculation-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+    }
+    
+    .checkbox-group {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+    }
+    
+    .checkbox-group input {
+      width: auto;
+      margin-right: 0.75rem;
+      margin-top: 0.25rem;
+    }
+    
+    .gas-estimate {
+      display: flex;
+      justify-content: space-between;
+      padding: 1rem;
+      background-color: var(--gray-100);
+      border-radius: var(--border-radius);
+      margin: 1.5rem 0;
+    }
+    
+    /* Placeholder image styles */
+    .placeholder-image {
+      background-color: #f0f0f0;
+      border-radius: var(--border-radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: #888;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .placeholder-image::before {
+      content: "PLACEHOLDER";
+      z-index: 1;
+    }
+    
+    .placeholder-image::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: repeating-linear-gradient(
+        45deg,
+        #f0f0f0,
+        #f0f0f0 10px,
+        #e0e0e0 10px,
+        #e0e0e0 20px
+      );
+      z-index: 0;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">Equity Protocol</div>
+        <div class="nav-links">
+          <a href="index.html">Home</a>
+          <a href="browse-assets.html">Browse Assets</a>
+          <a href="portfolio.html">My Portfolio</a>
+          <a href="create-listing.html">Create Listing</a>
+        </div>
+        <button class="btn" disabled style="background-color: var(--success-color);">Wallet Connected</button>
+      </nav>
+    </div>
+  </header>
+  
+  <div class="container" style="padding-top: 2rem; padding-bottom: 4rem;">
+    <h1 class="mb-4">Create New Asset Listing</h1>
+    
+    <div class="stepper">
+      <div class="step completed">
+        <div class="step-number">✓</div>
+        <div class="step-label">Create LTO</div>
+      </div>
+      <div class="step completed">
+        <div class="step-number">✓</div>
+        <div class="step-label">Set Sale Parameters</div>
+      </div>
+      <div class="step active">
+        <div class="step-number">3</div>
+        <div class="step-label">Review & Confirm</div>
+      </div>
+    </div>
+    
+    <div class="form-section">
+      <h2 class="mb-4">Review & Confirm Listing</h2>
+      
+      <div class="review-section">
+        <div class="asset-preview">
+          <div class="placeholder-image" style="width: 100%; max-width: 300px; height: 225px; border-radius: var(--border-radius); margin: 0 auto 1rem;"></div>
+          <h2>Rolex Submariner 126610LN</h2>
+          <p>Stainless steel, black dial, date function. Purchased in 2022.</p>
+        </div>
+        
+        <div class="parameters-summary">
+          <h3>Sale Parameters</h3>
+          <div class="parameter-row">
+            <span class="label">Ticker Symbol:</span>
+            <span class="value">RLEX</span>
+          </div>
+          <div class="parameter-row">
+            <span class="label">Total Supply:</span>
+            <span class="value">1,000 RLEX</span>
+          </div>
+          <div class="parameter-row">
+            <span class="label">Soft Cap:</span>
+            <span class="value">9,000 USDC</span>
+          </div>
+          <div class="parameter-row">
+            <span class="label">Hard Cap:</span>
+            <span class="value">10,000 USDC</span>
+          </div>
+          <div class="parameter-row">
+            <span class="label">Sale Duration:</span>
+            <span class="value">14 days</span>
+          </div>
+          <div class="parameter-row">
+            <span class="label">Liquidity Allocation:</span>
+            <span class="value">10%</span>
+          </div>
+          <div class="parameter-row">
+            <span class="label">Sale End Date:</span>
+            <span class="value">March 15, 2023</span>
+          </div>
+          
+          <div class="calculation-summary">
+            <h4>If Fully Funded (Hard Cap):</h4>
+            <div class="calculation-row">
+              <span>Amount to Liquidity Pool:</span>
+              <span>1,000 USDC</span>
+            </div>
+            <div class="calculation-row">
+              <span>Amount to You:</span>
+              <span>9,000 USDC</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="confirmation">
+          <div class="checkbox-group">
+            <input type="checkbox" id="terms">
+            <label for="terms">I confirm I have the right to sell this asset</label>
+          </div>
+          <div class="checkbox-group">
+            <input type="checkbox" id="understand">
+            <label for="understand">I understand that if the soft cap is not reached, the sale will be canceled</label>
+          </div>
+          
+          <div class="gas-estimate">
+            <span>Estimated Gas Fee:</span>
+            <span>0.015 ETH</span>
+          </div>
+          
+          <div style="display: flex; justify-content: space-between;">
+            <a href="set-sale-parameters.html" class="btn btn-secondary" style="padding: 0.75rem 1.5rem; font-weight: 500;">Back</a>
+            <button class="btn" id="create-listing-button" style="padding: 0.75rem 2rem; font-weight: 500;">Create Listing</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <footer style="background-color: var(--gray-800); color: white; padding: 3rem 0;">
+    <div class="container">
+      <div class="grid">
+        <div class="col-6">
+          <h3 style="color: white;">Equity Protocol</h3>
+          <p style="color: var(--gray-400);">Equity Protocol enables fractional ownership of real-world assets through tokenization, providing liquidity and accessibility to previously illiquid markets.</p>
+        </div>
+        
+        <div class="col-2">
+          <h4 style="color: white;">Platform</h4>
+          <ul style="list-style: none; padding: 0;">
+            <li style="margin-bottom: 0.5rem;"><a href="#" style="color: var(--gray-400);">Browse Assets</a></li>
+            <li style="margin-bottom: 0.5rem;"><a href="#" style="color: var(--gray-400);">Create Listing</a></li>
+            <li style="margin-bottom: 0.5rem;"><a href="#" style="color: var(--gray-400);">My Portfolio</a></li>
+          </ul>
+        </div>
+        
+        <div class="col-2">
+          <h4 style="color: white;">Resources</h4>
+          <ul style="list-style: none; padding: 0;">
+            <li style="margin-bottom: 0.5rem;"><a href="#" style="color: var(--gray-400);">Documentation</a></li>
+            <li style="margin-bottom: 0.5rem;"><a href="#" style="color: var(--gray-400);">FAQ</a></li>
+            <li style="margin-bottom: 0.5rem;"><a href="#" style="color: var(--gray-400);">GitHub</a></li>
+          </ul>
+        </div>
+        
+        <div class="col-2">
+          <h4 style="color: white;">Legal</h4>
+          <ul style="list-style: none; padding: 0;">
+            <li style="margin-bottom: 0.5rem;"><a href="#" style="color: var(--gray-400);">Terms</a></li>
+            <li style="margin-bottom: 0.5rem;"><a href="#" style="color: var(--gray-400);">Privacy</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div style="margin-top: 3rem; border-top: 1px solid var(--gray-700); padding-top: 2rem; text-align: center; color: var(--gray-500);">
+        &copy; 2023 Equity Protocol. All rights reserved.
+      </div>
+    </div>
+  </footer>
+  
+  <script>
+    // Simple form navigation
+    document.getElementById('create-listing-button').addEventListener('click', function() {
+      // In a real implementation, this would submit the form and create the listing
+      alert('Listing created successfully! Redirecting to your portfolio...');
+      window.location.href = 'portfolio.html';
+    });
+    
+    // Form validation would go here in a real implementation
+    document.getElementById('create-listing-button').disabled = true;
+    
+    function checkFormValidity() {
+      const termsChecked = document.getElementById('terms').checked;
+      const understandChecked = document.getElementById('understand').checked;
+      
+      document.getElementById('create-listing-button').disabled = !(termsChecked && understandChecked);
+    }
+    
+    document.getElementById('terms').addEventListener('change', checkFormValidity);
+    document.getElementById('understand').addEventListener('change', checkFormValidity);
+  </script>
+</body>
+</html> 

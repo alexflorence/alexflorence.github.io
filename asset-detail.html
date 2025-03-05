@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rolex Submariner - Equity Protocol</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    .asset-header {
+      margin-bottom: 2rem;
+    }
+    
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1rem;
+      font-size: 0.875rem;
+      color: var(--gray-600);
+    }
+    
+    .breadcrumb a {
+      color: var(--gray-600);
+      text-decoration: none;
+    }
+    
+    .breadcrumb a:hover {
+      color: var(--primary-color);
+      text-decoration: underline;
+    }
+    
+    .breadcrumb > *:not(:last-child)::after {
+      content: '>';
+      margin: 0 0.5rem;
+      color: var(--gray-400);
+    }
+    
+    .asset-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+    
+    .asset-gallery {
+      position: relative;
+    }
+    
+    .main-image {
+      width: 100%;
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      margin-bottom: 1rem;
+    }
+    
+    .main-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    
+    .thumbnail-row {
+      display: flex;
+      gap: 0.5rem;
+    }
+    
+    .thumbnail-row img {
+      width: calc(25% - 0.375rem);
+      height: 80px;
+      object-fit: cover;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    
+    .thumbnail-row img:hover {
+      opacity: 0.8;
+    }
+    
+    .ticker {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      background-color: var(--gray-100);
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 0.875rem;
+      color: var(--gray-700);
+      margin-bottom: 1.5rem;
+    }
+    
+    .funding-progress {
+      margin-bottom: 2rem;
+    }
+    
+    .funding-stats {
+      display: flex;
+      justify-content: space-between;
+      margin: 0.5rem 0;
+    }
+    
+    .funding-stats .raised {
+      font-weight: 600;
+      font-size: 1.125rem;
+    }
+    
+    .funding-stats .target {
+      color: var(--gray-600);
+    }
+    
+    .funding-stats .percentage {
+      font-weight: 600;
+      font-size: 1.125rem;
+      color: var(--primary-color);
+    }
+    
+    .caps {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.875rem;
+      color: var(--gray-600);
+    }
+    
+    .soft-cap-marker {
+      position: absolute;
+      top: -20px;
+      transform: translateX(-50%);
+    }
+    
+    .soft-cap-marker::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 2px;
+      height: 20px;
+      background-color: var(--gray-400);
+    }
+    
+    .soft-cap-marker span {
+      font-size: 0.75rem;
+      color: var(--gray-600);
+      white-space: nowrap;
+    }
+    
+    .time-remaining {
+      margin-bottom: 2rem;
+    }
+    
+    .countdown {
+      display: flex;
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+    
+    .time-unit {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: var(--gray-100);
+      padding: 1rem;
+      border-radius: var(--border-radius);
+      min-width: 80px;
+    }
+    
+    .time-unit .number {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--gray-900);
+    }
+    
+    .time-unit .label {
+      font-size: 0.875rem;
+      color: var(--gray-600);
+      margin-top: 0.25rem;
+    }
+    
+    .end-date {
+      font-size: 0.875rem;
+      color: var(--gray-600);
+    }
+    
+    .contribution-form {
+      background-color: var(--gray-100);
+      padding: 1.5rem;
+      border-radius: var(--border-radius);
+    }
+    
+    .receive-estimate {
+      margin: 1rem 0;
+      font-size: 0.875rem;
+    }
+    
+    .receive-estimate span {
+      font-weight: 600;
+      color: var(--primary-color);
+    }
+    
+    .note {
+      font-size: 0.75rem;
+      color: var(--gray-600);
+      margin-top: 1rem;
+    }
+    
+    .asset-details-tabs {
+      margin-top: 3rem;
+    }
+    
+    .tab-nav {
+      display: flex;
+      border-bottom: 1px solid var(--gray-300);
+      margin-bottom: 1.5rem;
+    }
+    
+    .tab {
+      padding: 0.75rem 1.5rem;
+      font-weight: 500;
+      color: var(--gray-600);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+    }
+    
+    .tab.active {
+      color: var(--primary-color);
+      border-bottom-color: var(--primary-color);
+    }
+    
+    .tab-content {
+      padding: 1rem 0;
+    }
+    
+    /* Placeholder Images */
+    .placeholder-image {
+      background-color: #f0f0f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .placeholder-image::before {
+      content: "PLACEHOLDER";
+      font-family: sans-serif;
+      font-weight: bold;
+      color: #999;
+      z-index: 1;
+    }
+    
+    .placeholder-image::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: repeating-linear-gradient(
+        45deg,
+        #ddd,
+        #ddd 10px,
+        #eee 10px,
+        #eee 20px
+      );
+      opacity: 0.5;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">Equity Protocol</div>
+        <div class="nav-links">
+          <a href="index.html">Home</a>
+          <a href="browse-assets.html">Browse Assets</a>
+          <a href="portfolio.html">My Portfolio</a>
+          <a href="create-listing.html">Create Listing</a>
+        </div>
+        <button class="btn" disabled style="background-color: var(--success-color);">Wallet Connected</button>
+      </nav>
+    </div>
+  </header>
+  
+  <div class="container" style="padding-top: 2rem; padding-bottom: 4rem;">
+    <div class="asset-header">
+      <div class="breadcrumb">
+        <a href="browse-assets.html">Browse</a>
+        <a href="#">Watches</a>
+        <span>Rolex Submariner</span>
+      </div>
+      
+      <div class="status-badge active">Active Sale: 8 days remaining</div>
+    </div>
+    
+    <div class="asset-content">
+      <div class="asset-gallery">
+        <div class="main-image">
+          <div class="placeholder-image" style="width: 100%; height: 400px;"></div>
+        </div>
+        <div class="thumbnail-row">
+          <div class="placeholder-image" style="width: calc(25% - 0.375rem); height: 80px; border-radius: var(--border-radius); cursor: pointer;"></div>
+          <div class="placeholder-image" style="width: calc(25% - 0.375rem); height: 80px; border-radius: var(--border-radius); cursor: pointer;"></div>
+          <div class="placeholder-image" style="width: calc(25% - 0.375rem); height: 80px; border-radius: var(--border-radius); cursor: pointer;"></div>
+          <div class="placeholder-image" style="width: calc(25% - 0.375rem); height: 80px; border-radius: var(--border-radius); cursor: pointer;"></div>
+        </div>
+      </div>
+      
+      <div class="asset-info">
+        <h1>Rolex Submariner 126610LN</h1>
+        <div class="ticker">RLEX</div>
+        
+        <div class="funding-progress">
+          <h3>Funding Progress</h3>
+          <div class="progress-container" style="position: relative;">
+            <div class="progress-bar" style="width: 65%"></div>
+            <div class="soft-cap-marker" style="left: 90%">
+              <span>Soft Cap</span>
+            </div>
+          </div>
+          <div class="funding-stats">
+            <div>
+              <span class="raised">5,850 USDC</span> 
+              <span class="target">of 10,000 USDC target</span>
+            </div>
+            <div class="percentage">65%</div>
+          </div>
+          <div class="caps">
+            <div>Soft Cap: 9,000 USDC</div>
+            <div>Hard Cap: 10,000 USDC</div>
+          </div>
+        </div>
+        
+        <div class="time-remaining">
+          <h3>Time Remaining</h3>
+          <div class="countdown">
+            <div class="time-unit">
+              <span class="number">8</span>
+              <span class="label">Days</span>
+            </div>
+            <div class="time-unit">
+              <span class="number">14</span>
+              <span class="label">Hours</span>
+            </div>
+            <div class="time-unit">
+              <span class="number">32</span>
+              <span class="label">Minutes</span>
+            </div>
+          </div>
+          <div class="end-date">Sale ends on March 15, 2023, 3:00 PM UTC</div>
+        </div>
+        
+        <div class="contribution-form">
+          <h3>Contribute to this Sale</h3>
+          <div class="form-group">
+            <label for="contribution-amount">Amount (USDC)</label>
+            <input type="number" id="contribution-amount" placeholder="Enter amount" min="1">
+          </div>
+          <div class="receive-estimate">
+            You will receive: <span id="token-estimate">0 RLEX</span>
+          </div>
+          <button class="btn" id="contribute-button" style="width: 100%;">Contribute USDC</button>
+          <div class="note">
+            Note: If soft cap is not reached, you will be able to claim a full refund.
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="asset-details-tabs">
+      <div class="tab-nav">
+        <div class="tab active">Description</div>
+        <div class="tab">Verification</div>
+        <div class="tab">Contributors</div>
+        <div class="tab">Updates</div>
+      </div>
+      
+      <div class="tab-content">
+        <div class="description">
+          <h2>About this Asset</h2>
+          <p>The Rolex Submariner 126610LN is a classic luxury diving watch. This particular model features a black ceramic bezel, black dial, and date function. Purchased in 2022, this watch has been worn only on special occasions and is in excellent condition.</p>
+          
+          <h3 class="mt-4 mb-3">Specifications</h3>
+          <ul>
+            <li>Reference Number: 126610LN</li>
+            <li>Year: 2022</li>
+            <li>Case: 41mm, Oystersteel</li>
+            <li>Movement: Automatic, Caliber 3235</li>
+            <li>Condition: Excellent</li>
+          </ul>
+          
+          <h3 class="mt-4 mb-3">Ownership History</h3>
+          <p>This watch was purchased from an authorized Rolex dealer in New York in January 2022. It comes with all original packaging, papers, and warranty card. The watch has been properly maintained and has never been serviced or repaired.</p>
+          
+          <h3 class="mt-4 mb-3">Why Invest</h3>
+          <p>Rolex Submariner watches have historically maintained their value well and often appreciate over time. This particular model is highly sought after and has shown strong demand in the secondary market. By investing in fractional ownership, you gain exposure to this luxury asset class without the need for a large upfront investment.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <footer style="background-color: var(--gray-800); color: white; padding: 3rem 0;">
+    <div class="container">
+      <div class="grid">
+        <div class="col-6">
+          <h3 style="color: white;">Equity Protocol</h3>
+          <p style="color: var(--gray-400);">Equity Protocol enables fractional ownership of real-world assets through tokenization, providing liquidity and accessibility to previously illiquid markets.</p>
+        </div>
+        
+        <div class="col-2">
+          <h4 style="color: white;">Platform</h4>
+          <ul style="list-style: none; padding: 0;">
+            <li style="margin-bottom: 0.5rem;"><a href="#" style="color: var(--gray-400);">Browse Assets</a></li>
+            <li style="margin-bottom: 0.5rem;"><a href="#" style="color: var(--gray-400);">Create Listing</a></li>
+            <li style="margin-bottom: 0.5rem;"><a href="#" style="color: var(--gray-400);">My Portfolio</a></li>
+          </ul>
+        </div>
+        
+        <div class="col-2">
+          <h4 style="color: white;">Resources</h4>
+          <ul style="list-style: none; padding: 0;">
+            <li style="margin-bottom: 0.5rem;"><a href="#" style="color: var(--gray-400);">Documentation</a></li>
+            <li style="margin-bottom: 0.5rem;"><a href="#" style="color: var(--gray-400);">FAQ</a></li>
+            <li style="margin-bottom: 0.5rem;"><a href="#" style="color: var(--gray-400);">GitHub</a></li>
+          </ul>
+        </div>
+        
+        <div class="col-2">
+          <h4 style="color: white;">Legal</h4>
+          <ul style="list-style: none; padding: 0;">
+            <li style="margin-bottom: 0.5rem;"><a href="#" style="color: var(--gray-400);">Terms</a></li>
+            <li style="margin-bottom: 0.5rem;"><a href="#" style="color: var(--gray-400);">Privacy</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div style="margin-top: 3rem; border-top: 1px solid var(--gray-700); padding-top: 2rem; text-align: center; color: var(--gray-500);">
+        &copy; 2023 Equity Protocol. All rights reserved.
+      </div>
+    </div>
+  </footer>
+  
+  <script>
+    // Tab functionality
+    const tabs = document.querySelectorAll('.tab');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', function() {
+        tabs.forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+        // In a real implementation, this would show the corresponding tab content
+      });
+    });
+    
+    // Contribution amount calculation
+    const contributionInput = document.getElementById('contribution-amount');
+    const tokenEstimate = document.getElementById('token-estimate');
+    
+    contributionInput.addEventListener('input', function() {
+      const amount = parseFloat(this.value) || 0;
+      tokenEstimate.textContent = `${amount} RLEX`;
+    });
+    
+    // Contribute button
+    document.getElementById('contribute-button').addEventListener('click', function() {
+      const amount = parseFloat(contributionInput.value) || 0;
+      if (amount <= 0) {
+        alert('Please enter a valid contribution amount');
+        return;
+      }
+      
+      // In a real implementation, this would trigger a wallet transaction
+      alert(`You are about to contribute ${amount} USDC to this sale. This would open your wallet for confirmation.`);
+    });
+    
+    // Image gallery
+    const thumbnails = document.querySelectorAll('.thumbnail-row .placeholder-image');
+    const mainImage = document.querySelector('.main-image .placeholder-image');
+    
+    // This is just a placeholder for the gallery functionality
+    // In a real implementation with actual images, this would swap the source
+    thumbnails.forEach(thumb => {
+      thumb.addEventListener('click', function() {
+        // Just for visual feedback in the placeholder version
+        thumbnails.forEach(t => t.style.opacity = 1);
+        this.style.opacity = 0.7;
+      });
+    });
+  </script>
+</body>
+</html> 

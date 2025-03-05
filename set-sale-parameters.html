@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Set Sale Parameters - Equity Protocol</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    .stepper {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+      position: relative;
+    }
+    
+    .stepper::before {
+      content: '';
+      position: absolute;
+      top: 1.5rem;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background-color: var(--gray-300);
+      z-index: 0;
+    }
+    
+    .step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+      width: 33.33%;
+    }
+    
+    .step-number {
+      width: 3rem;
+      height: 3rem;
+      border-radius: 50%;
+      background-color: var(--gray-300);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+    
+    .step.active .step-number {
+      background-color: var(--primary-color);
+    }
+    
+    .step.completed .step-number {
+      background-color: var(--success-color);
+    }
+    
+    .step-label {
+      font-weight: 500;
+      color: var(--gray-600);
+    }
+    
+    .step.active .step-label {
+      color: var(--primary-color);
+      font-weight: 600;
+    }
+    
+    .step.completed .step-label {
+      color: var(--success-color);
+    }
+    
+    .form-section {
+      background-color: white;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      padding: 2rem;
+    }
+    
+    .input-with-icon {
+      position: relative;
+    }
+    
+    .input-with-icon input {
+      padding-left: 3rem;
+    }
+    
+    .input-with-icon .currency {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--gray-600);
+      font-weight: 500;
+    }
+    
+    .input-with-icon .percentage {
+      position: absolute;
+      right: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--gray-600);
+      font-weight: 500;
+    }
+    
+    .duration-selector {
+      display: flex;
+      gap: 0.5rem;
+    }
+    
+    .duration-selector input {
+      width: 5rem;
+    }
+    
+    .duration-selector select {
+      flex: 1;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">Equity Protocol</div>
+        <div class="nav-links">
+          <a href="index.html">Home</a>
+          <a href="browse-assets.html">Browse Assets</a>
+          <a href="portfolio.html">My Portfolio</a>
+          <a href="create-listing.html">Create Listing</a>
+        </div>
+        <button class="btn" disabled style="background-color: var(--success-color);">Wallet Connected</button>
+      </nav>
+    </div>
+  </header>
+  
+  <div class="container" style="padding-top: 2rem; padding-bottom: 4rem;">
+    <h1 class="mb-4">Create New Asset Listing</h1>
+    
+    <div class="stepper">
+      <div class="step completed">
+        <div class="step-number">✓</div>
+        <div class="step-label">Create LTO</div>
+      </div>
+      <div class="step active">
+        <div class="step-number">2</div>
+        <div class="step-label">Set Sale Parameters</div>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-label">Review & Confirm</div>
+      </div>
+    </div>
+    
+    <div class="form-section">
+      <h2 class="mb-4">Configure Sale Parameters</h2>
+      
+      <form id="sale-parameters-form">
+        <div class="form-group">
+          <label for="ticker-symbol">Ticker Symbol</label>
+          <input type="text" id="ticker-symbol" placeholder="e.g., RLEX" maxlength="5">
+          <small style="display: block; margin-top: 0.25rem; color: var(--gray-500);">Max 5 characters, will be used as your token symbol</small>
+        </div>
+        
+        <div class="form-group">
+          <label for="total-supply">Total Supply</label>
+          <input type="number" id="total-supply" placeholder="e.g., 1000">
+          <small style="display: block; margin-top: 0.25rem; color: var(--gray-500);">Total number of shares to issue</small>
+        </div>
+        
+        <div class="form-group">
+          <label for="soft-cap">Minimum Sale Amount (Soft Cap)</label>
+          <div class="input-with-icon">
+            <span class="currency">USDC</span>
+            <input type="number" id="soft-cap" placeholder="e.g., 9000">
+          </div>
+          <small style="display: block; margin-top: 0.25rem; color: var(--gray-500);">Sale will fail if this amount isn't raised</small>
+        </div>
+        
+        <div class="form-group">
+          <label for="hard-cap">Maximum Sale Amount (Hard Cap)</label>
+          <div class="input-with-icon">
+            <span class="currency">USDC</span>
+            <input type="number" id="hard-cap" placeholder="e.g., 10000">
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="sale-duration">Sale Duration</label>
+          <div class="duration-selector">
+            <input type="number" id="sale-duration" placeholder="14">
+            <select id="duration-unit">
+              <option value="days">Days</option>
+              <option value="weeks">Weeks</option>
+            </select>
+          </div>
+          <small style="display: block; margin-top: 0.25rem; color: var(--gray-500);">Maximum duration is 30 days</small>
+        </div>
+        
+        <div class="form-group">
+          <label for="liquidity-allocation">Liquidity Pool Allocation</label>
+          <div class="input-with-icon">
+            <input type="number" id="liquidity-allocation" placeholder="10" value="10">
+            <span class="percentage">%</span>
+          </div>
+          <small style="display: block; margin-top: 0.25rem; color: var(--gray-500);">Percentage of raised funds to allocate for liquidity</small>
+        </div>
+        
+        <div style="display: flex; justify-content: space-between; margin-top: 2rem;">
+          <a href="create-listing.html" class="btn btn-secondary" style="padding: 0.75rem 1.5rem; font-weight: 500;">Back</a>
+          <button type="button" class="btn" id="next-step" style="padding: 0.75rem 2rem; font-weight: 500;">Next: Review & Confirm</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  
+  <footer style="background-color: var(--gray-800); color: white; padding: 3rem 0;">
+    <div class="container">
+      <div class="grid">
+        <div class="col-6">
+          <h3 style="color: white;">Equity Protocol</h3>
+          <p style="color: var(--gray-400);">Equity Protocol enables fractional ownership of real-world assets through tokenization, providing liquidity and accessibility to previously illiquid markets.</p>
+        </div>
+        
+        <div class="col-2">
+          <h4 style="color: white;">Platform</h4>
+          <ul style="list-style: none; padding: 0;">
+            <li style="margin-bottom: 0.5rem;"><a href="#" style="color: var(--gray-400);">Browse Assets</a></li>
+            <li style="margin-bottom: 0.5rem;"><a href="#" style="color: var(--gray-400);">Create Listing</a></li>
+            <li style="margin-bottom: 0.5rem;"><a href="#" style="color: var(--gray-400);">My Portfolio</a></li>
+          </ul>
+        </div>
+        
+        <div class="col-2">
+          <h4 style="color: white;">Resources</h4>
+          <ul style="list-style: none; padding: 0;">
+            <li style="margin-bottom: 0.5rem;"><a href="#" style="color: var(--gray-400);">Documentation</a></li>
+            <li style="margin-bottom: 0.5rem;"><a href="#" style="color: var(--gray-400);">FAQ</a></li>
+            <li style="margin-bottom: 0.5rem;"><a href="#" style="color: var(--gray-400);">GitHub</a></li>
+          </ul>
+        </div>
+        
+        <div class="col-2">
+          <h4 style="color: white;">Legal</h4>
+          <ul style="list-style: none; padding: 0;">
+            <li style="margin-bottom: 0.5rem;"><a href="#" style="color: var(--gray-400);">Terms</a></li>
+            <li style="margin-bottom: 0.5rem;"><a href="#" style="color: var(--gray-400);">Privacy</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div style="margin-top: 3rem; border-top: 1px solid var(--gray-700); padding-top: 2rem; text-align: center; color: var(--gray-500);">
+        &copy; 2023 Equity Protocol. All rights reserved.
+      </div>
+    </div>
+  </footer>
+  
+  <script>
+    // Simple form navigation
+    document.getElementById('next-step').addEventListener('click', function() {
+      window.location.href = 'review-listing.html';
+    });
+    
+    // Form validation would go here in a real implementation
+  </script>
+</body>
+</html> 

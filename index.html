@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Equity Protocol - Tokenize Real-World Assets</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Placeholder image styles */
+    .placeholder-image {
+      background-color: #f0f0f0;
+      border-radius: var(--border-radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: #888;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .placeholder-image::before {
+      content: "PLACEHOLDER";
+      z-index: 1;
+    }
+    
+    .placeholder-image::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: repeating-linear-gradient(
+        45deg,
+        #f0f0f0,
+        #f0f0f0 10px,
+        #e0e0e0 10px,
+        #e0e0e0 20px
+      );
+      z-index: 0;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">Equity Protocol</div>
+        <div class="nav-links">
+          <a href="browse-assets.html">Browse Assets</a>
+          <a href="portfolio.html">My Portfolio</a>
+          <a href="create-listing.html">Create Listing</a>
+        </div>
+        <button class="btn" id="connect-wallet">Connect Wallet</button>
+      </nav>
+    </div>
+  </header>
+  
+  <div class="hero" style="background-color: #2563eb; color: white; padding: 4rem 0; text-align: center;">
+    <div class="container">
+      <h1 style="color: white; font-size: 2.5rem; margin-bottom: 1rem;">Tokenize Real-World Assets</h1>
+      <p style="font-size: 1.25rem; margin-bottom: 2rem;">Buy, sell, and trade fractional ownership of luxury goods on the blockchain</p>
+      <div class="hero-buttons">
+        <a href="browse-assets.html" class="btn" style="background-color: white; color: var(--primary-color); font-weight: 600; padding: 0.75rem 1.5rem; margin-right: 1rem;">Browse Assets</a>
+        <a href="create-listing.html" class="btn" style="background-color: rgba(255, 255, 255, 0.1); border: 1px solid white; padding: 0.75rem 1.5rem;">Create Listing</a>
+      </div>
+    </div>
+  </div>
+  
+  <div class="featured-section">
+    <div class="container">
+      <h2 class="mt-5 mb-4">Featured Listings</h2>
+      
+      <div class="grid">
+        <!-- Asset Card 1 -->
+        <div class="col-4">
+          <div class="card">
+            <div class="status-badge active" style="margin-bottom: 0.5rem;">Active - 8 days left</div>
+            <div class="placeholder-image" style="width: 100%; height: 200px; border-radius: var(--border-radius); margin-bottom: 1rem;"></div>
+            <h3>Rolex Submariner</h3>
+            <div class="progress-container">
+              <div class="progress-bar" style="width: 65%"></div>
+            </div>
+            <div class="flex justify-between mb-2">
+              <span>5,850 USDC</span>
+              <span>65% funded</span>
+            </div>
+            <div class="mb-3">
+              <span style="color: var(--gray-600); font-size: 0.875rem;">1 RLEX = 1 USDC</span>
+            </div>
+            <a href="asset-detail.html" class="btn" style="display: block; text-align: center;">View Details</a>
+          </div>
+        </div>
+        
+        <!-- Asset Card 2 -->
+        <div class="col-4">
+          <div class="card">
+            <div class="status-badge active" style="margin-bottom: 0.5rem;">Active - 3 days left</div>
+            <div class="placeholder-image" style="width: 100%; height: 200px; border-radius: var(--border-radius); margin-bottom: 1rem;"></div>
+            <h3>Banksy "Girl with Balloon"</h3>
+            <div class="progress-container">
+              <div class="progress-bar" style="width: 82%"></div>
+            </div>
+            <div class="flex justify-between mb-2">
+              <span>18,450 USDC</span>
+              <span>82% funded</span>
+            </div>
+            <div class="mb-3">
+              <span style="color: var(--gray-600); font-size: 0.875rem;">1 BNKSY = 1 USDC</span>
+            </div>
+            <a href="asset-detail.html" class="btn" style="display: block; text-align: center;">View Details</a>
+          </div>
+        </div>
+        
+        <!-- Asset Card 3 -->
+        <div class="col-4">
+          <div class="card">
+            <div class="status-badge completed" style="margin-bottom: 0.5rem;">Trading Active</div>
+            <div class="placeholder-image" style="width: 100%; height: 200px; border-radius: var(--border-radius); margin-bottom: 1rem;"></div>
+            <h3>1st Edition Charizard Card</h3>
+            <div class="flex justify-between mb-2">
+              <span>Current Price:</span>
+              <span class="positive">0.87 USDC (+2.4%)</span>
+            </div>
+            <div class="mb-3">
+              <span style="color: var(--gray-600); font-size: 0.875rem;">Market Cap: 8,700 USDC</span>
+            </div>
+            <a href="trading-asset.html" class="btn" style="display: block; text-align: center;">Trade Now</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="how-it-works" style="background-color: var(--gray-100); padding: 4rem 0; margin-top: 3rem;">
+    <div class="container">
+      <h2 class="text-center mb-5">How It Works</h2>
+      
+      <div class="grid">
+        <div class="col-4">
+          <div class="card text-center" style="height: 100%;">
+            <div style="font-size: 2rem; color: var(--primary-color); margin-bottom: 1rem;">1</div>
+            <h3>Create & List</h3>
+            <p>Create an LTO Ownable representing your real-world asset and list it for fractional ownership</p>
+          </div>
+        </div>
+        
+        <div class="col-4">
+          <div class="card text-center" style="height: 100%;">
+            <div style="font-size: 2rem; color: var(--primary-color); margin-bottom: 1rem;">2</div>
+            <h3>Fund</h3>
+            <p>Investors contribute USDC to purchase shares of the asset during the funding period</p>
+          </div>
+        </div>
+        
+        <div class="col-4">
+          <div class="card text-center" style="height: 100%;">
+            <div style="font-size: 2rem; color: var(--primary-color); margin-bottom: 1rem;">3</div>
+            <h3>Trade</h3>
+            <p>Once funded, a liquidity pool is created to enable trading of shares on the open market</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <footer style="background-color: var(--gray-800); color: white; padding: 3rem 0; margin-top: 3rem;">
+    <div class="container">
+      <div class="grid">
+        <div class="col-6">
+          <h3 style="color: white;">Equity Protocol</h3>
+          <p style="color: var(--gray-400);">Equity Protocol enables fractional ownership of real-world assets through tokenization, providing liquidity and accessibility to previously illiquid markets.</p>
+        </div>
+        
+        <div class="col-2">
+          <h4 style="color: white;">Platform</h4>
+          <ul style="list-style: none; padding: 0;">
+            <li style="margin-bottom: 0.5rem;"><a href="#" style="color: var(--gray-400);">Browse Assets</a></li>
+            <li style="margin-bottom: 0.5rem;"><a href="#" style="color: var(--gray-400);">Create Listing</a></li>
+            <li style="margin-bottom: 0.5rem;"><a href="#" style="color: var(--gray-400);">My Portfolio</a></li>
+          </ul>
+        </div>
+        
+        <div class="col-2">
+          <h4 style="color: white;">Resources</h4>
+          <ul style="list-style: none; padding: 0;">
+            <li style="margin-bottom: 0.5rem;"><a href="#" style="color: var(--gray-400);">Documentation</a></li>
+            <li style="margin-bottom: 0.5rem;"><a href="#" style="color: var(--gray-400);">FAQ</a></li>
+            <li style="margin-bottom: 0.5rem;"><a href="#" style="color: var(--gray-400);">GitHub</a></li>
+          </ul>
+        </div>
+        
+        <div class="col-2">
+          <h4 style="color: white;">Legal</h4>
+          <ul style="list-style: none; padding: 0;">
+            <li style="margin-bottom: 0.5rem;"><a href="#" style="color: var(--gray-400);">Terms</a></li>
+            <li style="margin-bottom: 0.5rem;"><a href="#" style="color: var(--gray-400);">Privacy</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div style="margin-top: 3rem; border-top: 1px solid var(--gray-700); padding-top: 2rem; text-align: center; color: var(--gray-500);">
+        &copy; 2023 Equity Protocol. All rights reserved.
+      </div>
+    </div>
+  </footer>
+  
+  <script>
+    // Basic wallet connection simulation
+    document.getElementById('connect-wallet').addEventListener('click', function() {
+      this.textContent = 'Wallet Connected';
+      this.disabled = true;
+      this.style.backgroundColor = 'var(--success-color)';
+    });
+  </script>
+</body>
+</html> 
