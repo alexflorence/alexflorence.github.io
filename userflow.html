@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Flow - Equity Protocol</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    .userflow-container {
+      padding: 3rem 0;
+    }
+    
+    .userflow-diagram {
+      overflow-x: auto;
+      background-color: white;
+      padding: 2rem;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      margin-bottom: 3rem;
+    }
+    
+    .flow-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 900px;
+    }
+    
+    .flow-row {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 2rem;
+      position: relative;
+      width: 100%;
+    }
+    
+    .flow-node {
+      padding: 1rem;
+      background-color: var(--primary-color);
+      color: white;
+      border-radius: var(--border-radius);
+      text-align: center;
+      min-width: 150px;
+      position: relative;
+      margin: 0 1.5rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .flow-node:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+    
+    .flow-node.secondary {
+      background-color: var(--gray-600);
+    }
+    
+    .flow-node.success {
+      background-color: var(--success-color);
+    }
+    
+    .flow-node.warning {
+      background-color: var(--warning-color);
+    }
+    
+    .flow-arrow {
+      position: absolute;
+      height: 2px;
+      background-color: var(--gray-400);
+      z-index: 0;
+    }
+    
+    .flow-arrow::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: -4px;
+      width: 0;
+      height: 0;
+      border-left: 8px solid var(--gray-400);
+      border-top: 5px solid transparent;
+      border-bottom: 5px solid transparent;
+    }
+    
+    .flow-arrow.vertical {
+      width: 2px;
+      height: 40px;
+      background-color: var(--gray-400);
+    }
+    
+    .flow-arrow.vertical::after {
+      top: auto;
+      right: -4px;
+      bottom: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top: 8px solid var(--gray-400);
+    }
+    
+    .flow-description {
+      background-color: var(--gray-100);
+      border-radius: var(--border-radius);
+      padding: 2rem;
+    }
+    
+    .flow-step {
+      margin-bottom: 1.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--gray-300);
+    }
+    
+    .flow-step:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+    
+    .flow-step h3 {
+      margin-bottom: 0.5rem;
+      color: var(--gray-800);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">Equity Protocol</div>
+        <div class="nav-links">
+          <a href="index.html">Home</a>
+          <a href="browse-assets.html">Browse Assets</a>
+          <a href="portfolio.html">My Portfolio</a>
+          <a href="create-listing.html">Create Listing</a>
+          <a href="userflow.html" class="active">User Flow</a>
+        </div>
+        <button class="btn" id="connect-wallet">Connect Wallet</button>
+      </nav>
+    </div>
+  </header>
+  
+  <div class="container userflow-container">
+    <h1 class="mb-4">User Flow Diagram</h1>
+    <p class="mb-4">This diagram illustrates the main user journeys through the Equity Protocol platform. Click on any node to navigate to that page.</p>
+    
+    <div class="userflow-diagram">
+      <div class="flow-container">
+        <!-- Main Entry Flow -->
+        <div class="flow-row">
+          <div class="flow-node" onclick="window.location.href='index.html'">Home Page</div>
+        </div>
+        
+        <!-- Down Arrow -->
+        <div style="position: relative; height: 60px; width: 2px; background-color: var(--gray-400); margin-bottom: 20px;">
+          <div style="position: absolute; bottom: 0; left: -4px; width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 8px solid var(--gray-400);"></div>
+        </div>
+        
+        <!-- Main Navigation Flow -->
+        <div class="flow-row" style="justify-content: space-between; width: 80%; margin: 0 auto;">
+          <div class="flow-node" onclick="window.location.href='browse-assets.html'">Browse Assets</div>
+          <div class="flow-node" onclick="window.location.href='portfolio.html'">My Portfolio</div>
+          <div class="flow-node" onclick="window.location.href='create-listing.html'">Create Listing</div>
+        </div>
+        
+        <!-- Horizontal connectors for browse and create -->
+        <div style="position: relative; height: 60px; width: 80%; margin: 0 auto;">
+          <!-- Left connector -->
+          <div style="position: absolute; left: 10%; top: 0; width: 2px; height: 30px; background-color: var(--gray-400);"></div>
+          <div style="position: absolute; left: 10%; top: 30px; width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 8px solid var(--gray-400);"></div>
+          
+          <!-- Right connector -->
+          <div style="position: absolute; right: 10%; top: 0; width: 2px; height: 60px; background-color: var(--gray-400);"></div>
+          <div style="position: absolute; right: 10%; top: 60px; width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 8px solid var(--gray-400);"></div>
+        </div>
+        
+        <!-- Asset Detail and Creation Flow -->
+        <div class="flow-row" style="justify-content: space-between; width: 80%; margin: 0 auto;">
+          <div class="flow-node secondary" onclick="window.location.href='asset-detail.html'">Asset Detail</div>
+          <div style="width: 150px;"></div> <!-- Spacer -->
+          <div class="flow-node secondary" onclick="window.location.href='set-sale-parameters.html'">Set Sale Parameters</div>
+        </div>
+        
+        <!-- Connector arrows -->
+        <div style="position: relative; height: 60px; width: 80%; margin: 0 auto;">
+          <!-- Left connector -->
+          <div style="position: absolute; left: 10%; top: 0; width: 2px; height: 30px; background-color: var(--gray-400);"></div>
+          <div style="position: absolute; left: 10%; top: 30px; width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 8px solid var(--gray-400);"></div>
+          
+          <!-- Right connector -->
+          <div style="position: absolute; right: 10%; top: 0; width: 2px; height: 30px; background-color: var(--gray-400);"></div>
+          <div style="position: absolute; right: 10%; top: 30px; width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 8px solid var(--gray-400);"></div>
+        </div>
+        
+        <!-- Final Flow -->
+        <div class="flow-row" style="justify-content: space-between; width: 80%; margin: 0 auto;">
+          <div class="flow-node success" onclick="window.location.href='trading-asset.html'">Trading Asset</div>
+          <div style="width: 150px;"></div> <!-- Spacer -->
+          <div class="flow-node warning" onclick="window.location.href='review-listing.html'">Review Listing</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="flow-description">
+      <h2 class="mb-4">User Flow Explanation</h2>
+      
+      <div class="flow-step">
+        <h3>Home Page Flow</h3>
+        <p>Users start at the Home Page where they can connect their wallet and choose to browse existing assets, view their portfolio, or create a new asset listing.</p>
+      </div>
+      
+      <div class="flow-step">
+        <h3>Asset Browsing Flow</h3>
+        <p>From the Browse Assets page, users can view all available assets, apply filters, and click on an individual asset to see its details. From the Asset Detail page, users can invest in an asset during its funding period or trade shares if the asset is actively trading.</p>
+      </div>
+      
+      <div class="flow-step">
+        <h3>Portfolio Management Flow</h3>
+        <p>The My Portfolio page allows users to view all of their owned assets, track their investments, and access the trading page for any actively trading assets they own shares in.</p>
+      </div>
+      
+      <div class="flow-step">
+        <h3>Asset Creation Flow</h3>
+        <p>The asset creation process follows a 3-step flow:</p>
+        <ol>
+          <li><strong>Create LTO</strong>: Users provide basic information about the asset they want to tokenize</li>
+          <li><strong>Set Sale Parameters</strong>: Users define funding goals, token pricing, and liquidity parameters</li>
+          <li><strong>Review & Confirm</strong>: Users review all details and confirm the listing creation</li>
+        </ol>
+        <p>After confirmation, the listing appears in the Browse Assets page where other users can invest.</p>
+      </div>
+      
+      <div class="flow-step">
+        <h3>Trading Flow</h3>
+        <p>Once an asset is fully funded, it enters the trading phase. The Trading Asset page provides market data, price charts, and order placement functionality, allowing users to buy and sell shares of the asset on the open market.</p>
+      </div>
+    </div>
+  </div>
+  
+  <footer style="background-color: var(--gray-800); color: white; padding: 3rem 0; margin-top: 3rem;">
+    <div class="container">
+      <div class="grid">
+        <div class="col-6">
+          <h3 style="color: white;">Equity Protocol</h3>
+          <p style="color: var(--gray-400);">Equity Protocol enables fractional ownership of real-world assets through tokenization, providing liquidity and accessibility to previously illiquid markets.</p>
+        </div>
+        
+        <div class="col-2">
+          <h4 style="color: white;">Platform</h4>
+          <ul style="list-style: none; padding: 0;">
+            <li style="margin-bottom: 0.5rem;"><a href="browse-assets.html" style="color: var(--gray-400);">Browse Assets</a></li>
+            <li style="margin-bottom: 0.5rem;"><a href="create-listing.html" style="color: var(--gray-400);">Create Listing</a></li>
+            <li style="margin-bottom: 0.5rem;"><a href="portfolio.html" style="color: var(--gray-400);">My Portfolio</a></li>
+            <li style="margin-bottom: 0.5rem;"><a href="userflow.html" style="color: var(--gray-400);">User Flow</a></li>
+          </ul>
+        </div>
+        
+        <div class="col-2">
+          <h4 style="color: white;">Resources</h4>
+          <ul style="list-style: none; padding: 0;">
+            <li style="margin-bottom: 0.5rem;"><a href="#" style="color: var(--gray-400);">Documentation</a></li>
+            <li style="margin-bottom: 0.5rem;"><a href="#" style="color: var(--gray-400);">FAQ</a></li>
+            <li style="margin-bottom: 0.5rem;"><a href="#" style="color: var(--gray-400);">GitHub</a></li>
+          </ul>
+        </div>
+        
+        <div class="col-2">
+          <h4 style="color: white;">Legal</h4>
+          <ul style="list-style: none; padding: 0;">
+            <li style="margin-bottom: 0.5rem;"><a href="#" style="color: var(--gray-400);">Terms</a></li>
+            <li style="margin-bottom: 0.5rem;"><a href="#" style="color: var(--gray-400);">Privacy</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div style="margin-top: 3rem; border-top: 1px solid var(--gray-700); padding-top: 2rem; text-align: center; color: var(--gray-500);">
+        &copy; 2023 Equity Protocol. All rights reserved.
+      </div>
+    </div>
+  </footer>
+  
+  <script>
+    // Basic wallet connection simulation
+    document.getElementById('connect-wallet').addEventListener('click', function() {
+      this.textContent = 'Wallet Connected';
+      this.disabled = true;
+      this.style.backgroundColor = 'var(--success-color)';
+    });
+  </script>
+</body>
+</html> 
